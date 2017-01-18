@@ -58,53 +58,71 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+
+/*function playSound(e) {
     
-// Attach click handler to key 65 for now
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    if (!audio) {return}; // stop the function from running all together.
+    audio.currentTime = 0; // Rewind to the start.
+    audio.play();
+    key.classList.add('playing');
+}
+function removeTransition(e) {
+    if (e.propertyName !== 'transform') return; //Skip it if it's not a transform
+    this.classList.remove('playing');
+};
+
+const keys = document.querySelectorAll(`.key`);
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+window.addEventListener('keydown', playSound);
+*/
+
+// My attempt below:
 window.addEventListener("keydown", function(event) {
     attachAudio(event.which);   
-    
 });
 
 window.addEventListener("keyup", function(event) {
     afterAudio(event.which);
 });
 
-
-// My attempt below:
-//var attachAudio = function(key) {
+var attachAudio = function(key) {
     // Go through all the audio tags and check their data-key attribute to match with key
-//    var corrKey = "";
-//    for (i = 0; i < document.getElementsByTagName('audio').length; i ++) {
-//        var audioTag = document.getElementsByTagName('audio')[i];
-//        var audioKey = audioTag.getAttribute("data-key");
+    var corrKey = "";
+    for (i = 0; i < document.getElementsByTagName('audio').length; i ++) {
+        var audioTag = document.getElementsByTagName('audio')[i];
+        var audioKey = audioTag.getAttribute("data-key");
         
-//        if (key.toString() === audioKey) {
+        if (key.toString() === audioKey) {
             // Add the class playing to the correct key to make the key pop out.
-//            for (j = 0; j < document.getElementsByTagName('div').length; j ++) {
-//                var findKey = document.getElementsByTagName('div')[j];
-//                corrKey = findKey.getAttribute("data-key");
-//                if (corrKey === audioKey) {
-//                    findKey.className = "key playing";
+            for (j = 0; j < document.getElementsByTagName('div').length; j ++) {
+                var findKey = document.getElementsByTagName('div')[j];
+                corrKey = findKey.getAttribute("data-key");
+                if (corrKey === audioKey) {
+                    findKey.className = "key playing";
                     // Play the corresponding sound.
-//                    audioTag.play();
-//                    return
-//                }
-//            }
-//        }
-//    }
-//}
+                    audioTag.currentTime = 0;
+                    audioTag.play();
+                    return
+                }
+            }
+        }
+    }
+}
 
-//var afterAudio = function(key) {
+var afterAudio = function(key) {
     // Remove the playing class from the key that just played
-//    for (j = 0; j < document.getElementsByTagName('div').length; j ++) {
-//        var findKey = document.getElementsByTagName('div')[j];
-//        corrKey = findKey.getAttribute("data-key");
-//        if (corrKey === key.toString()) {
-//            findKey.className = "key";
-//            return
-//        }
-//    }
-//};
+    for (j = 0; j < document.getElementsByTagName('div').length; j ++) {
+        var findKey = document.getElementsByTagName('div')[j];
+        corrKey = findKey.getAttribute("data-key");
+        if (corrKey === key.toString()) {
+            findKey.className = "key";
+            return
+        }
+    }
+};
 
 </script>
 
