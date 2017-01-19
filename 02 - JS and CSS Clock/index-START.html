@@ -61,12 +61,83 @@
       background:black;
       position: absolute;
       top:50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transform-timing-function: cubic-bezier(.17, .67, .36, 1.08);
     }
 
   </style>
 
   <script>
-
+      
+  
+/*
+// MY attempt below.
+      // .hand hour-hand
+      // .hand minute-hand
+      // .hand second-hand
+      
+      // the second-hand should move 0.1 degrees every second
+      // the minute-hand should move 6 degrees every minute
+      // the hour hand should move 30 degrees every hour
+      // the way to do this is to use transform: rotate(number_of_deg) 
+      // on the appropriate hand div. 
+      // you can do that by having a function like move_hand() that just
+      // applies transform. Maybe you can get the current time, and move
+      // the hands based on the time?
+      
+      // Need an eventlistener that listens for the time?
+      //The window object allows execution of code at specified time
+      // intervals. these time intervals are called timing events.
+      // setInterval(function, milliseconds) -
+      // repeats the execution of the function continuously.
+      // dateobj.toLocaleTimeString() gives a string of the current time.
+      // you can also use getHours, getMinutes, getSeconds
+      
+      const hourHand = document.querySelector(".hand.hour-hand");
+      const minuteHand = document.querySelector(".hand.min-hand");
+      const secondHand = document.querySelector(".hand.second-hand");
+      const hourDegrees = 30;
+      const secondMinuteDegrees = 6;
+      
+      function setDate() {
+          // Needs to run every second. Will set the date? 
+          var d = new Date();
+          return d;
+      };
+      
+      function moveHand(hand) {
+          // Move the given hand based on the current time.
+          var currentTime;
+          var numOfDegrees;
+          if (hand === hourHand) {
+              currentTime = setDate().getHours();
+              numOfDegrees = 30;
+          }
+          else if (hand === minuteHand) {
+              currentTime = setDate().getMinutes();
+              numOfDegrees = 6;
+          }
+          else {
+              currentTime = setDate().getSeconds();
+              numOfDegrees = 6;
+          }
+          var degreeAmount = (currentTime*numOfDegrees)%360 + 90;
+          hand.style.transform = "rotate(" + degreeAmount + "deg)";
+      }
+      
+      
+      // Now make a function that does all three
+      function moveClock() {
+          moveHand(hourHand);
+          moveHand(minuteHand);
+          moveHand(secondHand);
+      };
+      
+      // Run moveClock every second?
+      setInterval(moveClock, 1000);
+*/
 
   </script>
 </body>
