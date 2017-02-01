@@ -22,11 +22,17 @@
     }
 
     .panels {
+      display: flex;
       min-height:100vh;
       overflow: hidden;
     }
 
     .panel {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
       background:#6B0F9C;
       box-shadow:inset 0 0 0 5px rgba(255,255,255,0.1);
       color:white;
@@ -41,6 +47,7 @@
       font-size: 20px;
       background-size:cover;
       background-position:center;
+      
     }
 
 
@@ -54,9 +61,27 @@
       margin:0;
       width: 100%;
       transition:transform 0.5s;
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .panel > *:first-child {
+        transform: translateY(-100%);
+    }
+    .panel.open-active > *:first-child {
+        transform: translateY(0);
+    }
+    
+    .panel > *:last-child {
+        transform: translateY(100%);
+    }
+    .panel.open-active > *:last-child {
+        transform: translateY(0);
     }
 
     .panel p {
+      flex-grow: 1;
       text-transform: uppercase;
       font-family: 'Amatic SC', cursive;
       text-shadow:0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
@@ -67,6 +92,7 @@
     }
 
     .panel.open {
+      flex: 5;
       font-size:40px;
     }
 
@@ -107,6 +133,21 @@
   </div>
 
   <script>
+      
+      const allPanels = document.querySelectorAll(".panel");
+      
+      function toggleOpen() {
+          this.classList.toggle('open');
+      };
+      
+      function toggleActive(e) {
+          if (e.propertyName.includes('flex')) {
+              this.classList.toggle('open-active');
+          }
+      };
+      
+      allPanels.forEach(panel => panel.addEventListener('click', toggleOpen));
+      allPanels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
 
   </script>
 
