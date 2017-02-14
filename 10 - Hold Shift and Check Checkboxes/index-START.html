@@ -106,33 +106,47 @@
 <script>
     // Game plan: have an event listener that listens to see if user is pressing
     // the shift key 
-    const inputs = document.querySelectorAll('input');
-    // Maybe have a flag that tells you that a box was clicked? So that you know
-    // when the shift key is pressed, you have to know that a checkbox was already clicked.
-    // Apparently if you press shift key and click on a checkbox, and you haven't already checked
-    // a first box, it fills boxes starting from the bottom up to the one you clicked with the shift
-    // key pressed down
-    
+    const inputs = document.querySelectorAll('.inbox input[type="checkbox"]');
+    console.log(input);
     // Keep track of the last checked check box, so that you can check all the checkboxes between it and
     // the next box you check
-    let checkedBoxes = [];
+    /*console.log(inputs);
+    
+    let lastChecked;
+    let shiftFlag = false;
+    let inBetween = [];
     
     function checkBoxes(e) {
-        console.log('box checked');
-        console.log(e);
+        console.log("Running function checkBoxes");
+        if (shiftFlag === true) {
+            lastChecked = e.target;
+            console.log(this.checked);
+        }
+        else {
+            console.log("Shift flag is false");
+        }
     };
     
     function shiftDown(e) {
-        if (e.keyCode === 16) {
+        console.log("Running function shiftDown");
+        if (e.keyCode === 16 && e.type === "keydown") {
             console.log(e);
+            console.log("shift key is being pressed");
+            shiftFlag = true;
+        }
+        else if (e.keyCode === 16 && e.type === "keyup") {
+            console.log("stopped pressing shift key");
+            shiftFlag = false;
         }
         else {
             console.log("you did not press shift key");
             console.log(e.keyCode);
         }
     };
-    inputs.forEach(input => input.addEventListener('keydown', shiftDown));
+    window.addEventListener('keydown', shiftDown);
+    inputs.forEach(input => input.addEventListener('keyup', shiftDown));
     inputs.forEach(input => input.addEventListener('click', checkBoxes));
+    */
     
     
 </script>
