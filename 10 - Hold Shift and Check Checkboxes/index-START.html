@@ -106,8 +106,43 @@
 <script>
     // Game plan: have an event listener that listens to see if user is pressing
     // the shift key 
-    const inputs = document.querySelectorAll('.inbox input[type="checkbox"]');
-    console.log(input);
+    const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+    
+    let lastChecked;
+    
+    
+    function handleCheck(e) {
+        
+        // Check if they had the shiftKey down
+        // AND check that they are checking it.
+        
+        if (e.shiftKey && this.checked)  {
+            // loop over every single checkbox, look for the first one that
+            // is checked, check all the ones after it, until you get to the
+            // next checked one.
+            
+            let inBetween = false;
+            checkboxes.forEach( checkbox => {
+                console.log("inBetween at beginning of loop: " + inBetween);
+                
+                if (checkbox.checked === true) {
+                    console.log("this one is checked:");
+                    console.log(checkbox);
+                    inBetween = !inBetween;
+                }
+                if (inBetween) {
+                    checkbox.checked = true;
+                }
+            })
+        }
+        else if (e.shiftKey) {
+        }
+        
+        lastChecked = this;
+    };
+    
+    
+    checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
     // Keep track of the last checked check box, so that you can check all the checkboxes between it and
     // the next box you check
     /*console.log(inputs);
