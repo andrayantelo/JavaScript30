@@ -104,6 +104,37 @@
   </div>
 
 <script>
+    // Game plan: have an event listener that listens to see if user is pressing
+    // the shift key 
+    const inputs = document.querySelectorAll('input');
+    // Maybe have a flag that tells you that a box was clicked? So that you know
+    // when the shift key is pressed, you have to know that a checkbox was already clicked.
+    // Apparently if you press shift key and click on a checkbox, and you haven't already checked
+    // a first box, it fills boxes starting from the bottom up to the one you clicked with the shift
+    // key pressed down
+    
+    // Keep track of the last checked check box, so that you can check all the checkboxes between it and
+    // the next box you check
+    let checkedBoxes = [];
+    
+    function checkBoxes(e) {
+        console.log('box checked');
+        console.log(e);
+    };
+    
+    function shiftDown(e) {
+        if (e.keyCode === 16) {
+            console.log(e);
+        }
+        else {
+            console.log("you did not press shift key");
+            console.log(e.keyCode);
+        }
+    };
+    inputs.forEach(input => input.addEventListener('keydown', shiftDown));
+    inputs.forEach(input => input.addEventListener('click', checkBoxes));
+    
+    
 </script>
 </body>
 </html>

@@ -7,6 +7,65 @@
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
 <script>
+    
+    const canvas = document.getElementById("draw");
+    const ctx = canvas.getContext("2d");
+    
+    // Make canvas same size as window
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    ctx.strokeStyle = "#BADA55";
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+    ctx.lineWidth = 100;
+    ctx.globalCompositeOperation = 'screen';
+    
+    // Set a flag to know if you are currently drawing
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
+    let hue = 0;
+    // if true, lineWidth is building up
+    let direction = true;
+    
+    function draw(e) {
+    // Called whenever I move my mouse on top of the canvas.
+    
+    // Stop the fn from running if they are not moused down.
+    if (!isDrawing) {
+        return;
+    }
+    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY); // moveTo defines the starting point of the line, moves the pen to the coordinates specified
+    // by lastX and lastY
+    ctx.lineTo(e.offsetX, e.offsetY); // defines the ending point of the line, for drawing lines
+    ctx.stroke(); // Draws the shape by stroking its outline
+    [lastX, lastY] = [e.offsetX, e.offsetY];
+    hue++;
+    if (hue >= 360) {
+        hue = 0;
+    }
+    if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+        // Flip the direction
+        direction = !direction;
+    }
+    if (direction) {
+        ctx.lineWidth++;
+    }
+    else {
+        ctx.lineWidth--;
+    }
+    };
+    
+    canvas.addEventListener('mousedown', (e) => {
+        isDrawing = true;
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+    });
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mouseout', () => isDrawing = false);
+ 
 </script>
 
 <style>
