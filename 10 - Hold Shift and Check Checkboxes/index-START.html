@@ -115,14 +115,15 @@
         // Check if they had the shiftKey down
         // AND check that they checked the checkbox
         
+        let inBetween = false;
         if (e.shiftKey && this.checked)  {
             // loop over every single checkbox, look for the first one that
             // is checked, check all the ones after it, until you get to the
             // next checked one.
             
-            let inBetween = false;
             checkboxes.forEach( checkbox => {
                 
+                // he checks if (checkbox === this || checkbox === lastChecked
                 if (checkbox.checked === true) {
                     // toggle inBetween. If you are at the first checked 
                     // checkbox then it will toggle to True and the checkboxes 
