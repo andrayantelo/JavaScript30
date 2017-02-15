@@ -109,12 +109,11 @@
     const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
     
     let lastChecked;
-    
-    
+
     function handleCheck(e) {
         
         // Check if they had the shiftKey down
-        // AND check that they are checking it.
+        // AND check that they checked the checkbox
         
         if (e.shiftKey && this.checked)  {
             // loop over every single checkbox, look for the first one that
@@ -123,22 +122,27 @@
             
             let inBetween = false;
             checkboxes.forEach( checkbox => {
-                console.log("inBetween at beginning of loop: " + inBetween);
                 
                 if (checkbox.checked === true) {
-                    console.log("this one is checked:");
-                    console.log(checkbox);
+                    // toggle inBetween. If you are at the first checked 
+                    // checkbox then it will toggle to True and the checkboxes 
+                    // following this one will be checked until you get to the
+                    // next checked checkbox.
                     inBetween = !inBetween;
                 }
                 if (inBetween) {
+                    // If you are inBetween the two checked checkboxes, or
+                    // inBetween one checked box and the end of the list of
+                    // checkboxes, then check the box
                     checkbox.checked = true;
                 }
             })
         }
-        else if (e.shiftKey) {
+        else if (this.checked) {
+            // store it in last checked
+            lastChecked = this;
         }
         
-        lastChecked = this;
     };
     
     
